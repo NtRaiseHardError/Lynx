@@ -123,7 +123,8 @@ std::wstring GetProcessName(HWND hDlg) {
 	int nIndex = ::SendMessage(::GetDlgItem(hDlg, IDC_LIST1), LB_GETCURSEL, 0, 0);
 	int nTextLen = ::SendMessage(::GetDlgItem(hDlg, IDC_LIST1), LB_GETTEXTLEN, static_cast<WPARAM>(nIndex), 0);
 
-	LPWSTR szText = new WCHAR[nTextLen];
+	LPWSTR szText = new WCHAR[nTextLen + 1];
+	ZeroMemory(szText, (nTextLen + 1) * sizeof(WCHAR));
 	::SendMessage(::GetDlgItem(hDlg, IDC_LIST1), LB_GETTEXT, static_cast<WPARAM>(nIndex), reinterpret_cast<LPARAM>(szText));
 	std::wstring szProcessName(szText);
 
